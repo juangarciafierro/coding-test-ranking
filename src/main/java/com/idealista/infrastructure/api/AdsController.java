@@ -1,28 +1,93 @@
 package com.idealista.infrastructure.api;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.idealista.infrastructure.api.repositories.AdRepository;
+import com.idealista.infrastructure.api.repositories.PictureRepository;
+import com.idealista.infrastructure.operations.AdsFilter;
+import com.idealista.infrastructure.operations.AdsSorter;
+import com.idealista.infrastructure.operations.OperationUtils;
+import com.idealista.infrastructure.operations.ScoreCalculator;
+import com.idealista.infrastructure.persistence.AdVO;
+import com.idealista.infrastructure.persistence.InMemoryPersistence;
+import com.idealista.infrastructure.persistence.PictureVO;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/ads")
 public class AdsController {
 
-    //TODO añade url del endpoint
+    private ArrayList<QualityAd> qualityAdList;
+
+    private static int MIN_SCORE = 40;
+
+    @GetMapping("/quality")
     public ResponseEntity<List<QualityAd>> qualityListing() {
-        //TODO rellena el cuerpo del método
         return ResponseEntity.notFound().build();
     }
 
-    //TODO añade url del endpoint
+    @GetMapping("/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
-        //TODO rellena el cuerpo del método
+
         return ResponseEntity.notFound().build();
     }
 
-    //TODO añade url del endpoint
+    @PostMapping("/score")
     public ResponseEntity<Void> calculateScore() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+
+        AdRepository adRepository = AdRepository.getInstance();
+        qualityAdList = adRepository.getQualityAdArrayList();
+
+        if (qualityAdList != null) {
+            PictureRepository pictureRepository = PictureRepository.getInstance();
+            qualityAdList = OperationUtils.addPictureUrlToAds(qualityAdList,pictureRepository.getPictureVOArrayList());
+
+            ScoreCalculator scoreCalculator = new ScoreCalculator();
+            scoreCalculator.setQualityAdList(qualityAdList);
+            scoreCalculator.calculate();
+
+            qualityAdList = scoreCalculator.getQualityAdList();
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    private ArrayList<QualityAd> removeIrrelevantAds() {
+
+        ArrayList<QualityAd> qualityAds = new ArrayList<>();
+        qualityAdList.forEach((qualityAd -> {
+            if (qualityAd.getScore() >= MIN_SCORE )
+                qualityAds.add(qualityAd);
+        }));
+
+        return qualityAds;
+    }
+
+    private ArrayList<PublicAd> getPublicAdsFromQualityAds(ArrayList<QualityAd> qualityAds) {
+
+        ArrayList<PublicAd> relevantQualityAdList = new ArrayList<>();
+        qualityAds.forEach((qualityAd -> relevantQualityAdList.add(getPublicAdFromQualityAd(qualityAd))));
+        return relevantQualityAdList;
+    }
+
+    private PublicAd getPublicAdFromQualityAd(QualityAd qualityAd) {
+
+        PublicAd publicAd = new PublicAd();
+
+        publicAd.setDescription(qualityAd.getDescription());
+        publicAd.setGardenSize(qualityAd.getGardenSize());
+        publicAd.setHouseSize(qualityAd.getHouseSize());
+        publicAd.setId(qualityAd.getHouseSize());
+        publicAd.setTypology(qualityAd.getTypology());
+
+        return publicAd;
     }
 }

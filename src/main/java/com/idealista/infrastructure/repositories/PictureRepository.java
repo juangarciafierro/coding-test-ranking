@@ -1,7 +1,5 @@
-package com.idealista.infrastructure.api.repositories;
+package com.idealista.infrastructure.repositories;
 
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import com.idealista.infrastructure.persistence.PictureVO;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

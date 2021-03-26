@@ -1,19 +1,12 @@
 package com.idealista.infrastructure.api;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.idealista.infrastructure.api.repositories.AdRepository;
-import com.idealista.infrastructure.api.repositories.PictureRepository;
-import com.idealista.infrastructure.operations.AdsFilter;
-import com.idealista.infrastructure.operations.AdsSorter;
+import com.idealista.infrastructure.repositories.AdRepository;
+import com.idealista.infrastructure.repositories.PictureRepository;
 import com.idealista.infrastructure.operations.OperationUtils;
 import com.idealista.infrastructure.operations.ScoreCalculator;
-import com.idealista.infrastructure.persistence.AdVO;
-import com.idealista.infrastructure.persistence.InMemoryPersistence;
-import com.idealista.infrastructure.persistence.PictureVO;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

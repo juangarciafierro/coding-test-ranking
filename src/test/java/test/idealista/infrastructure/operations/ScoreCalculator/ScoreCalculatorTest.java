@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -170,8 +173,30 @@ public class ScoreCalculatorTest {
         assertEquals(40,garageScore);
         assertEquals(45,flatScore);
         assertEquals(45,chaletScore);
+    }
 
+    @Test
+    @DisplayName("should update irrelevant date if score is lower tan MIN_SCORE and date is not set")
+    void shouldUpdateIrrelevantDateIfScoreIsLowAndDateNotSet() {
+        QualityAd qualityAd = new QualityAd();
+        int score = calculateSpecificScore(qualityAd);
+        assertEquals(-10,score);
+        Date date = qualityAd.getIrrelevantSince();
+        assertNotNull(date);
+    }
 
+    @Test
+    @DisplayName("should not update irrelevant date if score is lower tan MIN_SCORE but date is set")
+    void shouldNotUpdateIrrelevantDateIfScoreIsLowButDateIsSet() {
+        Date expectedDate = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        Date anotherDate = new Date();
+        QualityAd qualityAd = new QualityAd();
+        qualityAd.setIrrelevantSince(expectedDate);
+        int score = calculateSpecificScore(qualityAd);
+        assertEquals(-10,score);
+        Date date = qualityAd.getIrrelevantSince();
+        assertNotNull(date);
+        assertEquals(expectedDate,date);
     }
 
     private int calculateSpecificScore(QualityAd qualityAd) {

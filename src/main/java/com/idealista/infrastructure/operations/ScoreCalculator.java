@@ -3,6 +3,7 @@ package com.idealista.infrastructure.operations;
 import com.idealista.infrastructure.api.QualityAd;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ScoreCalculator {
@@ -13,6 +14,7 @@ public class ScoreCalculator {
     private static String CHALET = "CHALET";
     private static String GARAGE = "GARAGE";
     private static int MAX_SCORE = 100;
+    private static int MIN_SCORE = 40;
     private static String ATICO = "atico";
     private static String REFORMADO = "reformado";
     private static String CENTRICO = "centrico";
@@ -28,7 +30,18 @@ public class ScoreCalculator {
     }
 
     public void calculate() {
-        qualityAdList.forEach((qualityAd -> calculateScore(qualityAd)));
+        qualityAdList.forEach((qualityAd -> {
+            calculateScore(qualityAd);
+            updateIfIrrelevantAd(qualityAd);
+        }));
+    }
+
+    private void updateIfIrrelevantAd(QualityAd qualityAd) {
+        if (qualityAd.getScore() < MIN_SCORE) {
+            if (qualityAd.getIrrelevantSince() == null) {
+                qualityAd.setIrrelevantSince(new Date());
+            }
+        }
     }
 
     private void calculateScore(QualityAd qualityAd) {

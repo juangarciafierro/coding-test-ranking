@@ -29,7 +29,7 @@ public class AdsController {
             adsFilter.setQualityAdList(qualityAdList);
             return ResponseEntity.ok(adsFilter.getIrrelevantAds());
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping("/public")

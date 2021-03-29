@@ -20,18 +20,22 @@ public class AdRepository {
             context.scan("com.idealista.infrastructure.persistence");
             context.refresh();
             dataBase = context.getBean(InMemoryPersistence.class);
-            if (dataBase != null) {
-                qualityAdArrayList = new ArrayList<>();
-                dataBase.getAds().forEach((adVO -> qualityAdArrayList.add(convertToEntity(adVO))));
-            }
         }
     }
 
     public ArrayList<QualityAd> getQualityAdArrayList() {
+        if (dataBase != null) {
+            qualityAdArrayList = new ArrayList<>();
+            dataBase.getAds().forEach((adVO -> qualityAdArrayList.add(convertToEntity(adVO))));
+        }
         return qualityAdArrayList;
     }
 
     public ArrayList<Integer> getPictureIdListById(int id) {
+        if (dataBase != null) {
+            qualityAdArrayList = new ArrayList<>();
+            dataBase.getAds().forEach((adVO -> qualityAdArrayList.add(convertToEntity(adVO))));
+        }
         ArrayList<Integer> pictureIdList = null;
         if (dataBase.getAdById(id) != null) {
             pictureIdList = new ArrayList(dataBase.getAdById(id).getPictures());

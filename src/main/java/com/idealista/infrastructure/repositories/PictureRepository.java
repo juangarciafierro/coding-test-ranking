@@ -11,20 +11,21 @@ import java.util.ArrayList;
 public class PictureRepository {
 
     private ArrayList<PictureVO> pictureVOArrayList;
+    private InMemoryPersistence dataBase;
 
     public PictureRepository() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         if (context != null) {
             context.scan("com.idealista.infrastructure.persistence");
             context.refresh();
-            InMemoryPersistence dataBase = context.getBean(InMemoryPersistence.class);
-            if (dataBase != null) {
-                pictureVOArrayList = new ArrayList<>(dataBase.getPictures());
-            }
+            dataBase = context.getBean(InMemoryPersistence.class);
         }
     }
 
     public String getPictureQualityByUrl(String pictureUrl) {
+        if (dataBase != null) {
+            pictureVOArrayList = new ArrayList<>(dataBase.getPictures());
+        }
         String quality = null;
         for (PictureVO pictureVO : pictureVOArrayList ) {
             if (pictureVO.getUrl().contains(pictureUrl)) {
@@ -35,6 +36,9 @@ public class PictureRepository {
     }
 
     public String getPictureUrlById(int id) {
+        if (dataBase != null) {
+            pictureVOArrayList = new ArrayList<>(dataBase.getPictures());
+        }
         for (PictureVO pictureVO : pictureVOArrayList ) {
             if (pictureVO.getId() == id ) {
                 return pictureVO.getUrl();

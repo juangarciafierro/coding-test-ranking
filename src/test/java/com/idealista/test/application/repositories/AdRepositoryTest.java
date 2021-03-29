@@ -1,4 +1,4 @@
-package test.idealista.infrastructure.repositories;
+package com.idealista.test.application.repositories;
 
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;

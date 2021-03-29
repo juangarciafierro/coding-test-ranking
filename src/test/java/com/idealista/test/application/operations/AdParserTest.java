@@ -1,4 +1,4 @@
-package test.idealista.infrastructure.operations;
+package com.idealista.test.application.operations;
 
 import com.idealista.application.api.PublicAd;
 import com.idealista.application.api.QualityAd;

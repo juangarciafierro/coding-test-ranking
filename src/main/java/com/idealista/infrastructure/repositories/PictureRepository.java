@@ -19,7 +19,6 @@ public class PictureRepository {
             InMemoryPersistence dataBase = context.getBean(InMemoryPersistence.class);
             if (dataBase != null) {
                 pictureVOArrayList = new ArrayList<>(dataBase.getPictures());
-
             }
         }
     }
@@ -31,10 +30,6 @@ public class PictureRepository {
         return INSTANCE;
     }
 
-    public ArrayList<PictureVO> getPictureVOArrayList() {
-        return pictureVOArrayList;
-    }
-
     public String getPictureQualityByUrl(String pictureUrl) {
         String quality = null;
         for (PictureVO pictureVO : pictureVOArrayList ) {
@@ -43,5 +38,14 @@ public class PictureRepository {
             }
         }
         return quality;
+    }
+
+    public String getPictureUrlById(int id) {
+        for (PictureVO pictureVO : pictureVOArrayList ) {
+            if (pictureVO.getId() == id ) {
+                return pictureVO.getUrl();
+            }
+        }
+        return null;
     }
 }

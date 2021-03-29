@@ -11,13 +11,14 @@ public class AdRepository {
 
     private static AdRepository INSTANCE;
     private ArrayList<QualityAd> qualityAdArrayList;
+    private InMemoryPersistence dataBase;
 
     private AdRepository() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         if (context != null) {
             context.scan("com.idealista.infrastructure.persistence");
             context.refresh();
-            InMemoryPersistence dataBase = context.getBean(InMemoryPersistence.class);
+            dataBase = context.getBean(InMemoryPersistence.class);
             if (dataBase != null) {
                 qualityAdArrayList = new ArrayList<>();
                 dataBase.getAds().forEach((adVO -> qualityAdArrayList.add(convertToEntity(adVO))));
@@ -32,21 +33,28 @@ public class AdRepository {
         return INSTANCE;
     }
 
+    public ArrayList<QualityAd> getQualityAdArrayList() {
+        return qualityAdArrayList;
+    }
+
+    public ArrayList<Integer> getPictureIdListById(int id) {
+        ArrayList<Integer> pictureIdList = null;
+        if (dataBase.getAdById(id) != null) {
+            pictureIdList = new ArrayList(dataBase.getAdById(id).getPictures());
+        }
+        return pictureIdList;
+    }
+
     private QualityAd convertToEntity(AdVO adVO) {
-        // TODO Create factory
         QualityAd qualityAd = new QualityAd();
         qualityAd.setDescription(adVO.getDescription());
         qualityAd.setGardenSize(adVO.getGardenSize());
         qualityAd.setHouseSize(adVO.getHouseSize());
-        qualityAd.setId(adVO.getHouseSize());
+        qualityAd.setId(adVO.getId());
         qualityAd.setTypology(adVO.getTypology());
         qualityAd.setIrrelevantSince(adVO.getIrrelevantSince());
         qualityAd.setScore(adVO.getScore());
 
         return qualityAd;
-    }
-
-    public ArrayList<QualityAd> getQualityAdArrayList() {
-        return qualityAdArrayList;
     }
 }

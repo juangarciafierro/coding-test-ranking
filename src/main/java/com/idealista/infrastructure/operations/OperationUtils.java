@@ -3,7 +3,6 @@ package com.idealista.infrastructure.operations;
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.repositories.AdRepository;
 import com.idealista.infrastructure.repositories.PictureRepository;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
 

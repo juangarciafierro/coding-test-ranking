@@ -2,16 +2,17 @@ package test.idealista.infrastructure.operations;
 
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.operations.ScoreCalculator;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ScoreCalculatorTest {
 

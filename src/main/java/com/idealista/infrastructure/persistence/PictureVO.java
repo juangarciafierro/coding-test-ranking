@@ -6,8 +6,6 @@ public class PictureVO {
     private String url;
     private String quality;
 
-    public PictureVO() {}
-
     public PictureVO(Integer id, String url, String quality) {
         this.id = id;
         this.url = url;

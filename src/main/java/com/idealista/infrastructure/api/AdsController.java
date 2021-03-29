@@ -2,6 +2,8 @@ package com.idealista.infrastructure.api;
 
 import com.idealista.infrastructure.operations.*;
 import com.idealista.infrastructure.repositories.AdRepository;
+import com.idealista.infrastructure.repositories.PictureRepository;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,9 +42,8 @@ public class AdsController {
             adsFilter.setQualityAdList(qualityAdList);
             ArrayList<QualityAd> relevantQualityAds = adsFilter.getRelevantAds();
             ArrayList<PublicAd> relevantPublicAds = new ArrayList<>();
-            relevantQualityAds.forEach((qualityAd -> {
-                relevantPublicAds.add(AdParser.parseQualityToPublicAd(qualityAd));
-            }));
+            relevantQualityAds.forEach(qualityAd ->
+                relevantPublicAds.add(AdParser.parseQualityToPublicAd(qualityAd)));
             return ResponseEntity.ok(relevantPublicAds);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -51,10 +52,10 @@ public class AdsController {
     @PostMapping("/score")
     public ResponseEntity<Void> calculateScore() {
 
-        AdRepository adRepository = AdRepository.getInstance();
+        AdRepository adRepository = getAdRepository();
         qualityAdList = adRepository.getQualityAdArrayList();
         if (qualityAdList != null) {
-            qualityAdList = OperationUtils.addPictureUrlToAds(qualityAdList);
+            qualityAdList = OperationUtils.addPictureUrlToAds(qualityAdList, adRepository, getPictureRepository());
             ScoreCalculator scoreCalculator = new ScoreCalculator();
             scoreCalculator.setQualityAdList(qualityAdList);
             scoreCalculator.calculate();
@@ -62,5 +63,27 @@ public class AdsController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+    private AdRepository getAdRepository() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        AdRepository adRepository = null;
+        if (context != null) {
+            context.scan("com.idealista.infrastructure.repositories");
+            context.refresh();
+            adRepository = context.getBean(AdRepository.class);
+        }
+        return adRepository;
+    }
+
+    private PictureRepository getPictureRepository() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        PictureRepository pictureRepository = null;
+        if (context != null) {
+            context.scan("com.idealista.infrastructure.repositories");
+            context.refresh();
+            pictureRepository = context.getBean(PictureRepository.class);
+        }
+        return pictureRepository;
     }
 }

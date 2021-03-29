@@ -4,16 +4,17 @@ import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 public class AdRepository {
 
-    private static AdRepository INSTANCE;
     private ArrayList<QualityAd> qualityAdArrayList;
     private InMemoryPersistence dataBase;
 
-    private AdRepository() {
+    public AdRepository() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         if (context != null) {
             context.scan("com.idealista.infrastructure.persistence");
@@ -24,13 +25,6 @@ public class AdRepository {
                 dataBase.getAds().forEach((adVO -> qualityAdArrayList.add(convertToEntity(adVO))));
             }
         }
-    }
-
-    public static AdRepository getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new AdRepository();
-        }
-        return INSTANCE;
     }
 
     public ArrayList<QualityAd> getQualityAdArrayList() {

@@ -2,6 +2,7 @@ package com.idealista.infrastructure.operations;
 
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.repositories.PictureRepository;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -163,7 +164,7 @@ public class ScoreCalculator {
         } else {
             ArrayList<String> pictureUrls = new ArrayList<>(qualityAd.getPictureUrls());
             for (String pictureUrl : pictureUrls) {
-                String quality = PictureRepository.getInstance().getPictureQualityByUrl(pictureUrl);
+                String quality = getPictureRepository().getPictureQualityByUrl(pictureUrl);
                 if (HD.equals(quality)) {
                     score += 20;
                 } else if (SD.equals(quality)) {
@@ -172,5 +173,16 @@ public class ScoreCalculator {
             }
         }
         return score;
+    }
+
+    private PictureRepository getPictureRepository() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        PictureRepository pictureRepository = null;
+        if (context != null) {
+            context.scan("com.idealista.infrastructure.repositories");
+            context.refresh();
+            pictureRepository = context.getBean(PictureRepository.class);
+        }
+        return pictureRepository;
     }
 }

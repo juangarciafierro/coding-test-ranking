@@ -2,7 +2,7 @@ package test.idealista.infrastructure.repositories;
 
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
-import com.idealista.infrastructure.repositories.AdRepository;
+import com.idealista.application.repositories.AdRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

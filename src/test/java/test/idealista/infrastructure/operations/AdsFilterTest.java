@@ -1,7 +1,7 @@
 package test.idealista.infrastructure.operations;
 
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.operations.AdsFilter;
+import com.idealista.application.api.QualityAd;
+import com.idealista.application.operations.AdsFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

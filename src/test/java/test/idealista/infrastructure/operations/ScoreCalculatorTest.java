@@ -1,7 +1,7 @@
 package test.idealista.infrastructure.operations;
 
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.operations.ScoreCalculator;
+import com.idealista.application.api.QualityAd;
+import com.idealista.application.operations.ScoreCalculator;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

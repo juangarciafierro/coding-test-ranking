@@ -2,7 +2,7 @@ package test.idealista.infrastructure.repositories;
 
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import com.idealista.infrastructure.persistence.PictureVO;
-import com.idealista.infrastructure.repositories.PictureRepository;
+import com.idealista.application.repositories.PictureRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

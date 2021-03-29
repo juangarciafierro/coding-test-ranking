@@ -1,8 +1,8 @@
 package test.idealista.infrastructure.operations;
 
-import com.idealista.infrastructure.api.PublicAd;
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.operations.AdParser;
+import com.idealista.application.api.PublicAd;
+import com.idealista.application.api.QualityAd;
+import com.idealista.application.operations.AdParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

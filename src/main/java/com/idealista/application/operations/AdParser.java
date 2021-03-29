@@ -1,7 +1,7 @@
-package com.idealista.infrastructure.operations;
+package com.idealista.application.operations;
 
-import com.idealista.infrastructure.api.PublicAd;
-import com.idealista.infrastructure.api.QualityAd;
+import com.idealista.application.api.PublicAd;
+import com.idealista.application.api.QualityAd;
 
 public class AdParser {
     

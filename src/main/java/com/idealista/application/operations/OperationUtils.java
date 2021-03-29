@@ -1,8 +1,8 @@
-package com.idealista.infrastructure.operations;
+package com.idealista.application.operations;
 
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.repositories.AdRepository;
-import com.idealista.infrastructure.repositories.PictureRepository;
+import com.idealista.application.api.QualityAd;
+import com.idealista.application.repositories.AdRepository;
+import com.idealista.application.repositories.PictureRepository;
 
 import java.util.ArrayList;
 

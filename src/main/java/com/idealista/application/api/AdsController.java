@@ -1,8 +1,8 @@
-package com.idealista.infrastructure.api;
+package com.idealista.application.api;
 
-import com.idealista.infrastructure.operations.*;
-import com.idealista.infrastructure.repositories.AdRepository;
-import com.idealista.infrastructure.repositories.PictureRepository;
+import com.idealista.application.operations.*;
+import com.idealista.application.repositories.AdRepository;
+import com.idealista.application.repositories.PictureRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +69,7 @@ public class AdsController {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         AdRepository adRepository = null;
         if (context != null) {
-            context.scan("com.idealista.infrastructure.repositories");
+            context.scan("com.idealista.application.repositories");
             context.refresh();
             adRepository = context.getBean(AdRepository.class);
         }
@@ -80,7 +80,7 @@ public class AdsController {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         PictureRepository pictureRepository = null;
         if (context != null) {
-            context.scan("com.idealista.infrastructure.repositories");
+            context.scan("com.idealista.application.repositories");
             context.refresh();
             pictureRepository = context.getBean(PictureRepository.class);
         }

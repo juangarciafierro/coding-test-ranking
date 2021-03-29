@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.repositories;
+package com.idealista.application.repositories;
 
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import com.idealista.infrastructure.persistence.PictureVO;

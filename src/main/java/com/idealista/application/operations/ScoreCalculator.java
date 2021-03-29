@@ -1,7 +1,7 @@
-package com.idealista.infrastructure.operations;
+package com.idealista.application.operations;
 
-import com.idealista.infrastructure.api.QualityAd;
-import com.idealista.infrastructure.repositories.PictureRepository;
+import com.idealista.application.api.QualityAd;
+import com.idealista.application.repositories.PictureRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
@@ -179,7 +179,7 @@ public class ScoreCalculator {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         PictureRepository pictureRepository = null;
         if (context != null) {
-            context.scan("com.idealista.infrastructure.repositories");
+            context.scan("com.idealista.application.repositories");
             context.refresh();
             pictureRepository = context.getBean(PictureRepository.class);
         }

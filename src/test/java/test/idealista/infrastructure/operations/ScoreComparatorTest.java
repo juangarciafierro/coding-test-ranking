@@ -1,4 +1,4 @@
-package test.idealista.infrastructure.operations.ScoreCalculator;
+package test.idealista.infrastructure.operations;
 
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.operations.ScoreComparator;
@@ -12,8 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ScoreComparatorTest {
 
-    private static int MAX_SCORE = 100;
-    private static int STEP = 10;
+    private static final int MAX_SCORE = 100;
+    private static final int STEP = 10;
 
     @Test
     @DisplayName("should sort ads from lowest to highest score when used in Collections.sort")

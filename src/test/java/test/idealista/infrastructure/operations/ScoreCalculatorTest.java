@@ -1,4 +1,4 @@
-package test.idealista.infrastructure.operations.ScoreCalculator;
+package test.idealista.infrastructure.operations;
 
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.operations.ScoreCalculator;
@@ -15,19 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ScoreCalculatorTest {
 
-    private static String FLAT = "FLAT";
-    private static String CHALET = "CHALET";
-    private static String GARAGE = "GARAGE";
+    private static final String FLAT = "FLAT";
+    private static final String CHALET = "CHALET";
+    private static final String GARAGE = "GARAGE";
 
-    private static String ATICO = "atico";
-    private static String REFORMADO = "reformado";
-    private static String CENTRICO = "centrico";
-    private static String NUEVO = "nuevo";
-    private static String LUMINOSO = "luminoso";
+    private static final String ATICO = "atico";
+    private static final String REFORMADO = "reformado";
+    private static final String CENTRICO = "centrico";
+    private static final String NUEVO = "nuevo";
+    private static final String LUMINOSO = "luminoso";
 
-    private static String SHORT_DESCRIPTION = "short description";
-    private static String ENOUGH_DESCRIPTION = StringUtils.repeat("*", 30);
-    private static String LONG_DESCRIPTION = StringUtils.repeat("*", 50);;
+    private static final String SHORT_DESCRIPTION = "short description";
+    private static final String ENOUGH_DESCRIPTION = StringUtils.repeat("*", 30);
+    private static final String LONG_DESCRIPTION = StringUtils.repeat("*", 50);;
 
     private ScoreCalculator scoreCalculator = new ScoreCalculator();
 
@@ -126,14 +126,6 @@ public class ScoreCalculatorTest {
         qualityAd.setDescription(SHORT_DESCRIPTION);
         score = calculateSpecificScore(qualityAd);
         assertEquals(45,score);
-    }
-
-    @Test
-    @DisplayName("should calculate score for ad with existing pictures")
-    void shouldCalculateScoreForExistingPictures() {
-
-        //TODO Implement tests and functionality
-        assert(false);
     }
 
     @Test

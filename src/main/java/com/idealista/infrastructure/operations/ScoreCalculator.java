@@ -10,18 +10,18 @@ public class ScoreCalculator {
 
     private ArrayList<QualityAd> qualityAdList;
 
-    private static String HD = "HD";
-    private static String SD = "SD";
-    private static String FLAT = "FLAT";
-    private static String CHALET = "CHALET";
-    private static String GARAGE = "GARAGE";
-    private static int MAX_SCORE = 100;
-    private static int MIN_SCORE = 40;
-    private static String ATICO = "atico";
-    private static String REFORMADO = "reformado";
-    private static String CENTRICO = "centrico";
-    private static String NUEVO = "nuevo";
-    private static String LUMINOSO = "luminoso";
+    private static final String HD = "HD";
+    private static final String SD = "SD";
+    private static final String FLAT = "FLAT";
+    private static final String CHALET = "CHALET";
+    private static final String GARAGE = "GARAGE";
+    private static final int MAX_SCORE = 100;
+    private static final int MIN_SCORE = 40;
+    private static final String ATICO = "atico";
+    private static final String REFORMADO = "reformado";
+    private static final String CENTRICO = "centrico";
+    private static final String NUEVO = "nuevo";
+    private static final String LUMINOSO = "luminoso";
 
     public ArrayList<QualityAd> getQualityAdList() {
         return qualityAdList;

@@ -1,15 +1,17 @@
 package com.idealista.infrastructure.operations;
 
 import com.idealista.infrastructure.api.QualityAd;
+import com.idealista.infrastructure.repositories.PictureRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ScoreCalculator {
 
     private ArrayList<QualityAd> qualityAdList;
 
+    private static String HD = "HD";
+    private static String SD = "SD";
     private static String FLAT = "FLAT";
     private static String CHALET = "CHALET";
     private static String GARAGE = "GARAGE";
@@ -37,7 +39,7 @@ public class ScoreCalculator {
     }
 
     private void updateIfIrrelevantAd(QualityAd qualityAd) {
-        if (qualityAd.getScore() < MIN_SCORE) {
+        if (qualityAd.getScore() != null && qualityAd.getScore() < MIN_SCORE) {
             if (qualityAd.getIrrelevantSince() == null) {
                 qualityAd.setIrrelevantSince(new Date());
             }
@@ -159,7 +161,15 @@ public class ScoreCalculator {
         if (qualityAd.getPictureUrls() == null || qualityAd.getPictureUrls().size() == 0) {
             score = -10;
         } else {
-            // TODO Implement pictures
+            ArrayList<String> pictureUrls = new ArrayList<>(qualityAd.getPictureUrls());
+            for (String pictureUrl : pictureUrls) {
+                String quality = PictureRepository.getInstance().getPictureQualityByUrl(pictureUrl);
+                if (HD.equals(quality)) {
+                    score += 20;
+                } else if (SD.equals(quality)) {
+                    score += 10;
+                }
+            }
         }
         return score;
     }

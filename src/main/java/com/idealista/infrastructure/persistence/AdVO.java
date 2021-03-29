@@ -14,8 +14,6 @@ public class AdVO {
     private Integer score;
     private Date irrelevantSince;
 
-    public AdVO() {}
-
     public AdVO(Integer id, String typology, String description, List<Integer> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
